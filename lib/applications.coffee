@@ -1,10 +1,9 @@
-memcache = require 'memcache'
+# connection info
 request = require 'request'
+memcache = require 'memcache'
 
-server = process.env.DBSERVER || "localhost"
-views =  "http://#{server}:5984/default/_design/applications/_view"
-# DB
 db = new memcache.Client()
+views = require './db'
 
 # # Applications 
 module.exports =
@@ -16,11 +15,9 @@ module.exports =
       unless err? then cb(null) else cb(new Error('Unable to save app'))
   # all apps by owner
   all: (owner, cb) ->
-    db.connect()
     request.get 
       uri: [views, 'all'].join('/')
       json: { key: owner }
       (err, resp, body) ->
         apps = (app.value for app in body.rows)
-        db.close()
         cb(null, apps)
