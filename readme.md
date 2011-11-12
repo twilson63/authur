@@ -1,3 +1,6 @@
+# Disclaimer
+## Work in Progress
+
 # Authur
 
 An application authentication library, focused on super fast authentication for
