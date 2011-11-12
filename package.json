@@ -1,0 +1,27 @@
+{
+  "author": "Tom Wilson <tom@jackhq.com> (http://www.jackhq.com)",
+  "name": "authur",
+  "description": "Super Fast Application Authentication Library",
+  "version": "0.0.1",
+  "homepage": "http://authur.wilbur.io",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/twilson63/authur.git"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "jasmine-node spec --coffee"
+  },
+  "engines": {
+    "node": "~> 0.4.x"
+  },
+  "dependencies": {
+    "coffee-script": "1.x.x"
+    , "express": "*"
+    , "memcache": "*"
+    , "request": "*"
+  },
+  "devDependencies": {
+    "jasmine-node": "*"
+  }
+}
