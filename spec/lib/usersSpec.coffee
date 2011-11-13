@@ -8,8 +8,9 @@ describe 'users', ->
     asyncSpecWait()
   describe '#authenticate', ->
     it 'should be valid', ->
-      users.authenticate 'jackhq', 'disel10', (err) ->
+      users.authenticate 'jackhq', 'disel10', (err, apps) ->
         expect(err).toBeNull()
+        expect(apps).toEqual([])
         asyncSpecDone()
       asyncSpecWait()
     it 'should be invalid pasword', ->
@@ -22,3 +23,8 @@ describe 'users', ->
         expect(err.message).toEqual('User Invalid')
         asyncSpecDone()
       asyncSpecWait()
+  it '#attachApp', ->
+    users.attachApp 'jackhq', 'app1', (err, result) ->
+      expect(result).toEqual("STORED")
+      asyncSpecDone()
+    asyncSpecWait()
