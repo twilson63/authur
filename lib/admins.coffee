@@ -1,6 +1,7 @@
 # connection info
 request = require 'request'
 memcache = require 'memcache'
+bcrypt = require 'bcrypt'
 
 db = new memcache.Client()
 views = require './db'
@@ -9,16 +10,21 @@ views = require './db'
 module.exports = 
   register: (username, password, confirm, cb) ->
     return cb(new Error('Password and Confirm not equal.')) unless password == confirm
-    @_save { username, password }, (err, result) -> 
-      unless err? then cb(null) else cb(new Error('Unable to create user'))
+    @_encrypt password, (err, salt, hash) =>
+      @_save { username, salt, hash }, (err, result) -> 
+        unless err? then cb(null) else cb(new Error('Unable to create user'))
   
   authenticate: (username, password, cb) ->
     @_get username, (err, admin) ->
       if err?
         cb(new Error('Admin Invalid'))
       else 
-        if password == admin.password then cb(null, admin)  else cb(new Error('Password Invalid'))
+        bcrypt.compare password, admin.hash, (err, res) ->
+          if res then cb(null, admin)  else cb(new Error('Password Invalid'))
   
+  _encrypt: (password, cb) ->
+      bcrypt.gen_salt 10, (err, salt) -> bcrypt.encrypt password, salt, (err, hash) -> cb(err, salt, hash)
+
   #bolierplate get
   _get: (username, cb) ->
     db.connect()
