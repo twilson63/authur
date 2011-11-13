@@ -1,0 +1,41 @@
+.container
+  .sixteen.columns.header
+    h1 Authur 1.0
+  .eight.columns.offset-by-two
+    :markdown
+      ## Welcome to Authur 1.0
+
+      Authurs main purpose is to provide an authentication system to web service applications.  Web service
+      applications need to focus on their purpose, not be bogged down in authentication, so it should be easy
+      to manage different users to access your web service.  It should also be fast and able to be persistent, as
+      well as scale.  
+
+      ### Design Goals
+
+      * Simple API - Easy for any web service to use - http(s)
+      * Fast - high response time for authentication checks
+      * Multi-App Support - able to register multiple applications and authenticate the same users against multiple applications.
+
+      ### How it works
+
+      #### Apply for Admin Account
+
+      Simply register for an Admin Account, this account will enable you to register your applications to Authur, these
+      applications must be unique to the authur system, so if you have a staging and development system, you need to 
+      name them differently.
+
+      #### Register an Application
+
+      Register your web service application, by using a simple curl command, using your new admin credentials
+
+      #### Register Users
+
+      Now you can regisister new or existing users and attach them to your application.
+
+      #### Integrate into your application
+
+      Using a rest client, it is very easy to integrate into your application for authentication.
+
+          /auth/[app] -d '{ "username": "user", "password": "password" }'
+      
+       

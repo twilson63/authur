@@ -21,6 +21,8 @@
     , "memcache": "*"
     , "request": "*"
     , "bcrypt": "*"
+    , "jade": "*"
+    , "markdown": "*"
   },
   "devDependencies": {
     "jasmine-node": "*"

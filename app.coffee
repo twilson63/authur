@@ -1,4 +1,5 @@
 express = require 'express'
+
 applications = require './lib/applications'
 users = require './lib/users'
 admins = require './lib/admins'
@@ -7,10 +8,18 @@ admins = require './lib/admins'
 auth = (user, password, cb) -> admins.authenticate user, password, cb 
  
 app = express.createServer()
-app.use express.bodyParser()
+
+app.configure ->
+  app.set "view engine", "jade"
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+
 
 ## Authur 1.0
 #
+# # WebSite
+app.get '/', (req, resp) ->
+  resp.render "index"
 #
 # # Applications
 #
@@ -44,4 +53,4 @@ app.post '/auth/:app', express.basicAuth(auth), (req, resp) ->
       resp.json { success: false }
     
 
-app.listen 3000, -> console.log 'Listening on port 3000'
+app.listen process.env.VMC_APP_PORT or 3000, -> console.log 'Listening...'
