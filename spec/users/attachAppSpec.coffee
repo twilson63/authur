@@ -1,7 +1,9 @@
 require '../../app'
 request = require 'request'
 
-good_url = 'http://admin:thomas@localhost:3000'
+good_url = 'http://jackadmin:thomas63@authur.wilbur.io'
+
+#good_url = 'http://admin:thomas@localhost:3000'
 
 describe 'Users#attachApp', ->
   it 'success is true', -> 

@@ -33,8 +33,9 @@ app.post '/admins', (req, resp) ->
 #
 # Register Application
 app.put '/applications/:name', express.basicAuth(auth), (req, resp) ->
-  applications.register req.params.name, 'Admin', (err) ->
+  applications.register req.params.name, express.basicAuth(auth), (err) ->
     resp.json { success: (if err? then false else true) }
+
 # Get all apps by owner
 app.get '/applications', express.basicAuth(auth), (req, resp) ->
   applications.all req.remoteUser.username, (err, applications) -> 

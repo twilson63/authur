@@ -22,15 +22,10 @@ can associate a user and an application.
 
 ### Applications
 
-``` sh
-# list applications
-curl http://[admin]:[pass]@authur.wilbur.io/applications
-```
-
 ### Register Application
 
 ``` sh
-curl -XPUT http://[admin]:[pass]@authur.wilbur.io/applications -d '{ "name": "awesome_sauce" }'
+curl -XPUT http://[admin]:[pass]@authur.wilbur.io/applications -d '{ "name": "app1" }'
 #=> { "success": "true" }
 ```
 
@@ -41,38 +36,16 @@ curl -XPUT http://[admin]:[pass]@authur.wilbur.io/users -d '{ "username": "foo",
 #=> { "success": "true" }
 ```
 
-### List users for an application
-
-``` sh
-curl http://[admin]:[pass]@authur.wilbur.io/applications/[app]/users 
-#=> { "users": ["foo", "bar"]}
-```
-
 ### Attach User to Application
 
 ``` sh
-curl -XPUT http://[admin]:[pass]@authur.wilbur.io/applications/[app]/users -d '{"username": "foo"}'
+curl -XPOST http://[admin]:[pass]@authur.wilbur.io/users/[user]/apps/[app]
 #=> { "success": "true"}
 ```
 
 ### Authenticate User
 
 ``` sh
-curl -XPOST http://[admin]:[pass]@authur.wilbur.io/applications/[app]/users/[user] -d ' {"password": "bar"}'
+curl -XPOST http://[admin]:[pass]@authur.wilbur.io/auth/[app] -d ' {"username": "foo", password": "bar"}'
 #=> { "success": "true"}
 ```
-
-### User Applications
-
-``` sh
-curl http://[admin]:[pass]@authur.wilbur.io/users/[user]/applications
-#=> { "applications": ["app1","app2"]}
-```
-
-### User Test Authentication
-
-``` sh
-curl -XPOST http://[admin]:[pass]@authur.wilbur.io/users/[user] -d '{"password": "bar"}'
-#=> { "success": "true" }
-```
-
