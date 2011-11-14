@@ -3,7 +3,7 @@ request = require 'request'
 memcache = require 'memcache'
 bcrypt = require 'bcrypt'
 
-db = new memcache.Client()
+db = new memcache.Client(11211, process.env.DBSERVER ? "localhost")
 views = require './db'
 
 # Admins

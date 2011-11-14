@@ -2,7 +2,7 @@
 request = require 'request'
 memcache = require 'memcache'
 
-db = new memcache.Client()
+db = new memcache.Client(11211, process.env.DBSERVER ? "localhost")
 views = require './db'
 
 # # Applications 
