@@ -20,6 +20,14 @@ app.configure ->
 # # WebSite
 app.get '/', (req, resp) ->
   resp.render "index"
+app.get '/register', (req, resp) ->
+  resp.render "register"
+
+app.post '/admins', (req, resp) ->
+  admins.register req.body.username, req.body.password, req.body.confirm, (err, admin) ->
+    resp.render "success" unless err?
+
+
 #
 # # Applications
 #

@@ -1,1 +1,15 @@
-h1 Register
+.container
+  .sixteen.columns
+    h1 Register
+    form(method="POST", action="/admins")
+      p
+        label Admin Name
+        input(type="text", placeholder="must be unique", name="username")
+      p
+        label Password
+        input(type="password", name="password")
+      p
+        label Confirm Password
+        input(type="password", name="confirm")
+      p
+        button Register
