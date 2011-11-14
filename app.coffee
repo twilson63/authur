@@ -13,6 +13,7 @@ app.configure ->
   app.set "view engine", "jade"
   app.use express.bodyParser()
   app.use express.methodOverride()
+  app.use express.static './public'
 
 
 ## Authur 1.0
