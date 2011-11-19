@@ -20,7 +20,6 @@
     , "express": "*"
     , "memcache": "*"
     , "request": "*"
-    //, "bcrypt": "*" commented out to pull from global npm install bcrypt -g
     , "jade": "*"
     , "markdown": "*"
   },
