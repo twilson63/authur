@@ -25,27 +25,27 @@ can associate a user and an application.
 ### Register Application
 
 ``` sh
-curl -XPUT http://[admin]:[pass]@authur.wilbur.io/applications -d '{ "name": "app1" }'
+curl -XPUT http://[admin]:[pass]@authur.wilbur.io/applications -d '{ "name": "app1" }' -H 'Content-Type: application/json'
 #=> { "success": "true" }
 ```
 
 ### Register User
 
 ``` sh
-curl -XPUT http://[admin]:[pass]@authur.wilbur.io/users -d '{ "username": "foo", "password": "bar", "confirm": "bar"} '
+curl -XPUT http://[admin]:[pass]@authur.wilbur.io/users/[user] -d '{"password": "bar", "confirm": "bar"} ' -H 'Content-Type: application/json'
 #=> { "success": "true" }
 ```
 
 ### Attach User to Application
 
 ``` sh
-curl -XPOST http://[admin]:[pass]@authur.wilbur.io/users/[user]/apps/[app]
+curl -XPOST http://[admin]:[pass]@authur.wilbur.io/users/[user]/apps/[app] -H 'Content-Type: application/json'
 #=> { "success": "true"}
 ```
 
 ### Authenticate User
 
 ``` sh
-curl -XPOST http://[admin]:[pass]@authur.wilbur.io/auth/[app] -d ' {"username": "foo", password": "bar"}'
+curl -XPOST http://[admin]:[pass]@authur.wilbur.io/auth/[app] -d ' {"username": "foo", password": "bar"}' -H 'Content-Type: application/json'
 #=> { "success": "true"}
 ```
