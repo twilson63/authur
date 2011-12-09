@@ -2,16 +2,17 @@
 request = require 'request'
 memcache = require 'memcache'
 bcrypt = require 'bcrypt'
+crypto = require 'crypto'
 
 db = new memcache.Client(11211, process.env.DBSERVER or "localhost")
 views = require './db'
 
 # Admins
 module.exports = 
-  register: (username, password, confirm, cb) ->
-    return cb(new Error('Password and Confirm not equal.')) unless password == confirm
-    @_encrypt password, (err, salt, hash) =>
-      @_save { username, salt, hash }, (err, result) -> 
+  register: (user, cb) ->
+    return cb(new Error('Password and Confirm not equal.')) unless user.password == user.confirm
+    @_encrypt user.password, (err, salt, hash) =>
+      @_save { username: user.username, salt, hash }, (err, result) -> 
         unless err? then cb(null) else cb(new Error('Unable to create user'))
   
   authenticate: (username, password, cb) ->
@@ -27,8 +28,9 @@ module.exports =
 
   #bolierplate get
   _get: (username, cb) ->
+    hash = crypto.createHash('sha1').update(username).digest('hex')
     db.connect()
-    db.get "admin-#{username}", (err, userDoc) ->  
+    db.get "admin-#{hash}", (err, userDoc) ->  
       db.close()
       if err?
         cb err, null
@@ -38,7 +40,8 @@ module.exports =
         cb new Error('Admin Not Found'), null
 
   _save: (admin, cb) ->
+    hash = crypto.createHash('sha1').update(admin.username).digest('hex')
     db.connect()
-    db.set "admin-#{admin.username}", JSON.stringify(admin), (err, result) ->
+    db.set "admin-#{hash}", JSON.stringify(admin), (err, result) ->
       db.close()
       if err? then cb(err, null) else cb(null, result) 

@@ -2,6 +2,7 @@
 request = require 'request'
 memcache = require 'memcache'
 bcrypt = require 'bcrypt'
+crypto = require 'crypto'
 
 db = new memcache.Client(11211, process.env.DBSERVER or "localhost")
 views = require './db'
@@ -42,8 +43,9 @@ module.exports =
   
   #bolierplate get
   _get: (username, cb) ->
+    hash = crypto.createHash('sha1').update(username).digest('hex')
     db.connect()
-    db.get "user-#{username}", (err, userDoc) ->  
+    db.get "user-#{hash}", (err, userDoc) ->  
       db.close()
       if err?
         cb err, null
@@ -54,6 +56,7 @@ module.exports =
 
   _save: (user, cb) ->
     db.connect()
-    db.set "user-#{user.username}", JSON.stringify(user), (err, result) ->
+    hash = crypto.createHash('sha1').update(user.username).digest('hex')
+    db.set "user-#{hash}", JSON.stringify(user), (err, result) ->
       db.close()
       if err? then cb(err, null) else cb(null, result) 

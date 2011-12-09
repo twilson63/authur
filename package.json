@@ -2,7 +2,7 @@
   "author": "Tom Wilson <tom@jackhq.com> (http://www.jackhq.com)",
   "name": "authur",
   "description": "Super Fast Application Authentication Library",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "http://authur.wilbur.io",
   "repository": {
     "type": "git",
@@ -10,21 +10,22 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "jasmine-node spec --coffee"
+    "test": "mocha"
   },
   "engines": {
-    "node": "~> 0.4.x"
+    "node": "~0.4.x"
   },
   "dependencies": {
-    "coffee-script": "1.x.x"
-    , "express": "*"
-    , "memcache": "*"
-    , "request": "*"
-    //, "bcrypt": "*" commented out to pull from global npm install bcrypt -g
-    , "jade": "*"
-    , "markdown": "*"
+    "coffee-script": "~1.x.x"
+    , "express": "~2.5.x"
+    , "memcache": "~0.2.x"
+    , "request": "~2.x.x"
+    , "bcrypt": "~0.4.x" 
+    , "jade": "~0.x.x"
+    , "markdown": "~0.x.x"
   },
   "devDependencies": {
-    "jasmine-node": "*"
+    "mocha": "~0.3.x"
+    , "should": "*"
   }
 }
